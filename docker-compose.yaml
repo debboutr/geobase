@@ -7,11 +7,12 @@ services:
     container_name: geodjango
     command: /usr/bin/uvicorn geodjango.asgi:application --host 0.0.0.0 --port 8000
     ports:
-      - "8088:8000"
+      - "8000:8000"
+    env_file: .env
+    restart: always
     depends_on:
       db:
         condition: service_healthy
-    restart: always
 
   db:
     image: postgis/postgis:latest
@@ -25,11 +26,18 @@ services:
       retries: 5
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Donsende1
-      - POSTGRES_DB=geodjango
+    env_file: .env
     restart: always
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/static
+    depends_on:
+      - web
 
 volumes:
   pgdata:

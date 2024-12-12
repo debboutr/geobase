@@ -9,3 +9,7 @@ ____________Check it out and subscribe____________
 
 
 ![Geodjango Youtube Thumbnail](https://github.com/user-attachments/assets/552a8cdd-20e4-418c-962a-a7f7efeeb2fa)
+# ... tar it ...
+docker run --rm --volumes-from postgres -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /var/lib/postgresql/data
+# ... untar it ...
+docker run --rm --volumes-from postgres  -v $(pwd):/backup ubuntu bash -c "cd /var/lib/postgresql/data && tar xvf /backup/backup.tar --strip 1"
