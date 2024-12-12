@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    image: geodjango:latest
+    container_name: geodjango
+    ports:
+      - "8088:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=geodjango.settings
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Donsende1
+      - POSTGRES_DB=geodjango
+      - POSTGRES_HOST=db
+    command: python manage.py runserver "0.0.0.0:8000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+
