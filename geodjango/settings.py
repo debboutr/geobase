@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 # Load the .env file
 load_dotenv()
 
-POOP = os.environ.get("POOP", "")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,9 +28,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0oi@m$4=wswmv%#^38d+%*mu9i6ehn@1fv=lb-sr346nf+-qqr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  = os.environ.get("DEBUG", FALSE)
+DEBUG  = os.environ.get("DEBUG", "")
 
-ALLOWED_HOSTS = ["localhost", "*"]
+ALLOWED_HOSTS   = os.environ.get("ALLOWED_HOSTS", "").split(",")
+
+CSRF_TRUSTED_ORIGINS = [
+        "http://www.geobase.debbout.info",
+        "http://geobase.debbout.info"
+]
 
 
 # Application definition
